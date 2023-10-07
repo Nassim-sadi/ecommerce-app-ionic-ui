@@ -2,28 +2,43 @@
   <ion-page>
     <ion-content>
       <div class="swipe-wrapper">
-        <div class="top-bar">This is top Bar</div>
-        <div class="swiper-container">
-          <div class="swiper-wrapper">
-            <swiper
-              :modules="modules"
-              :keyboard="true"
-              :pagination="{ enabled: true }"
-              :scrollbar="true"
-              :autoplay="false"
-            >
-              <swiper-slide class="single-swiper"
-                ><ChooseProducts />
-              </swiper-slide>
-              <swiper-slide class="single-swiper"><MakePayment /></swiper-slide>
-              <swiper-slide class="single-swiper"><GetOrder /></swiper-slide>
-            </swiper>
-          </div>
+        <div class="top-bar">
+          <div>1/3</div>
+          <div>Skip</div>
         </div>
 
+        <swiper
+          :modules="modules"
+          :keyboard="true"
+          :pagination="{
+            enabled: true,
+            el: '.my-pagination',
+          }"
+          :navigation="{
+            nextEl: '.my-swiper-button-next',
+            prevEl: '.my-swiper-button-prev',
+          }"
+          @swiper="setSwiperInstance"
+        >
+          <swiper-slide class="single-swiper">
+            <ChooseProducts />
+          </swiper-slide>
+          <swiper-slide class="single-swiper">
+            <MakePayment />
+          </swiper-slide>
+          <swiper-slide class="single-swiper">
+            <GetOrder />
+          </swiper-slide>
+        </swiper>
         <div class="bottom-bar">
-          <p>bottom</p>
-          <p id="pagination"></p>
+          <div class="my-swiper-button-prev">Prev</div>
+          <div class="my-pagination"></div>
+          <div
+            class="my-swiper-button-next"
+            @click="console.log(setSwiperInstance)"
+          >
+            Next
+          </div>
         </div>
       </div>
     </ion-content>
@@ -34,19 +49,12 @@
 import ChooseProducts from "@/views/splashScreen/pages/ChooseProducts.vue";
 import GetOrder from "@/views/splashScreen/pages/GetOrder.vue";
 import MakePayment from "@/views/splashScreen/pages/MakePayment.vue";
+// import Swiper core and required module
+import { Keyboard, Pagination, Navigation } from "swiper/modules";
+// Import Swiper Vue.js components
 import { Swiper, SwiperSlide } from "swiper/vue";
-import { defineComponent } from "vue";
-import "@ionic/vue/css/ionic-swiper.css";
-import {
-  Autoplay,
-  Keyboard,
-  Pagination,
-  Scrollbar,
-  Zoom,
-} from "swiper/modules";
-import "swiper/css";
-import "swiper/css/keyboard";
-import "swiper/css/pagination";
+
+import { defineComponent, ref } from "vue";
 export default defineComponent({
   components: {
     Swiper,
@@ -57,8 +65,16 @@ export default defineComponent({
   },
 
   setup() {
+    // const swiper = useSwiper();
+    const slides = ref();
+    const setSwiperInstance = (swiper: any) => {
+      slides.value = swiper;
+      console.log(slides.value);
+    };
+
     return {
-      modules: [Autoplay, Keyboard, Pagination, Scrollbar, Zoom],
+      setSwiperInstance,
+      modules: [Keyboard, Pagination, Navigation],
     };
   },
 });
@@ -66,17 +82,40 @@ export default defineComponent({
 
 <style scoped>
 .swipe-wrapper {
-  width: 100svw;
-  height: 100svh;
+  width: 100%;
+  height: 80%;
 }
-
+.top-bar {
+  position: absolute;
+}
 .top-bar,
 .bottom-bar {
-  height: 10svh;
+  padding: 1rem;
+  height: 1rem;
   width: 100%;
+  right: 0;
+  left: 0;
   display: flex;
   flex-direction: row;
   justify-content: space-between;
+  align-items: center;
+  align-content: center;
+}
+
+.bottom-bar {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  justify-content: center;
+}
+
+.my-pagination {
+  width: 5rem;
+  margin: 0 auto;
+}
+.swiper-pagination-bullet-active {
+  background: red !important;
 }
 .top-bar {
   display: flex;
@@ -85,12 +124,16 @@ export default defineComponent({
   justify-content: space-between;
   height: auto;
 }
-.swiper {
-  --bullet-background: black;
-  --bullet-background-active: red;
-  --progress-bar-background: rgba($text-color-rgb, 1);
-  --progress-bar-background-active: ion-color(primary, shade);
-  --scroll-bar-background: rgba($text-color-rgb, 0.1);
-  --scroll-bar-background-active: rgba($text-color-rgb, 0.5);
+:global(.my-swiper-button-prev .my-swiper-button-next) {
+  font-weight: 800;
+  background: red;
+}
+.my-pagination {
+  --swiper-pagination-color: var(--black-color);
+}
+:global(.swiper-pagination-bullet-active) {
+  width: 2rem;
+  border-radius: 4px;
+  transition: width 300ms linear;
 }
 </style>

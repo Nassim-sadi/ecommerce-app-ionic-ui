@@ -19,19 +19,49 @@ import "@ionic/vue/css/text-alignment.css";
 import "@ionic/vue/css/text-transformation.css";
 import "@ionic/vue/css/flex-utils.css";
 import "@ionic/vue/css/display.css";
+import { Swiper, SwiperSlide } from "swiper/vue";
 
+// Import Swiper styles
+import "swiper/css";
+import "swiper/css/navigation";
+import "swiper/css/pagination";
 /* Theme variables */
 import "./theme/variables.css";
 import "./theme/base.css";
 import "./theme/social.css";
 /** importing Global components */
-import { IonButton, IonContent, IonItem, IonPage, IonImg } from "@ionic/vue";
+import {
+  IonButton,
+  IonContent,
+  IonItem,
+  IonPage,
+  IonImg,
+  IonButtons,
+  IonInput,
+  IonList,
+  IonText,
+  IonAvatar,
+  IonTitle,
+  IonToolbar,
+  IonIcon,
+} from "@ionic/vue";
+
 const app = createApp(App).use(IonicVue).use(router);
 app.component("ion-button", IonButton);
 app.component("ion-content", IonContent);
 app.component("ion-item", IonItem);
 app.component("ion-page", IonPage);
 app.component("ion-img", IonImg);
+app.component("ion-buttons", IonButtons);
+app.component("ion-input", IonInput);
+app.component("ion-list", IonList);
+app.component("ion-text", IonText);
+app.component("swiper-slide", SwiperSlide);
+app.component("swiper", Swiper);
+app.component("ion-avatar", IonAvatar);
+app.component("ion-title", IonTitle);
+app.component("ion-toolbar", IonToolbar);
+app.component("ion-icon", IonIcon);
 
 router.isReady().then(() => {
   app.mount("#app");

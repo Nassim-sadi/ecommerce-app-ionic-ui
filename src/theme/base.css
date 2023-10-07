@@ -1,3 +1,6 @@
+:root {
+  --ion-background-color: var(--white-color);
+}
 ion-item {
   border: 1px solid var(--gray-color);
   border-radius: 10px;
@@ -10,7 +13,7 @@ ion-input {
 }
 
 ion-icon {
-  color: var(--gray-color-lighter);
+  color: var(--gray-color-step1);
 }
 ion-button {
   text-transform: none;
@@ -61,4 +64,7 @@ h2 {
   font-weight: 600;
   line-height: 24px; /* 171.429% */
   letter-spacing: 0.28px;
+}
+ion-header::after {
+  background-image: none;
 }

@@ -84,9 +84,12 @@ http://ionicframework.com/docs/theming/ */
 
   --black-color: #000;
   --white-color: #fff;
+  --title-color: #4392f9;
+  --pink-color-step1: #ffa3b3;
 
   /** font Family **/
   --ion-font-family: "Montserrat", sans-serif !important;
+  --title-font: Libre Caslon Text;
 }
 
 @media (prefers-color-scheme: dark) {
